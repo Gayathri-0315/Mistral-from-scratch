@@ -1,0 +1,30 @@
+# Model configuration
+
+VOCAB_SIZE = 1000
+
+HIDDEN_SIZE = 64
+NUM_HEADS = 4
+INTERMEDIATE_SIZE = 256
+NUM_LAYERS = 2
+
+MAX_SEQ_LEN = 128
+
+
+# Training configuration
+
+BATCH_SIZE = 2
+LEARNING_RATE = 3e-4
+EPOCHS = 50
+VALIDATION_SPLIT = 0.2
+
+
+# Files
+
+TRAIN_FILE = "data/train.txt"
+TOKENIZER_FILE = "tokenizer/tokenizer.json"
+CHECKPOINT_FILE = "mistral_tiny.pth"
+
+TEMPERATURE = 0.8
+TOP_K = 20
+REPETITION_PENALTY = 1.2
+MAX_NEW_TOKENS = 20

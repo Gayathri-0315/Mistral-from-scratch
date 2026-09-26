@@ -1,0 +1,115 @@
+Artificial intelligence is a field of computer science that focuses on creating systems capable of performing tasks that normally require human intelligence. These tasks include understanding language, recognizing patterns, learning from data, reasoning, and making predictions.
+
+Machine learning is a major part of artificial intelligence. A machine learning model learns relationships from examples instead of being explicitly programmed with every possible rule. During training, the model receives data and adjusts its parameters to reduce the difference between its predictions and the expected results.
+
+Deep learning uses neural networks with many layers to learn complex patterns. Neural networks are composed of mathematical operations that transform input information into useful representations. The parameters of the network are updated during training using gradients.
+
+A language model learns patterns in sequences of tokens. Given a sequence of previous tokens, the model predicts the probability distribution of the next token. This simple objective is the foundation of many modern language models.
+
+Tokenization converts text into smaller units called tokens. A token may represent a complete word, part of a word, punctuation, or another piece of text. The tokenizer maps each token to an integer ID that can be processed by a neural network.
+
+A vocabulary is the collection of tokens known by a tokenizer. Each token has a unique integer identifier. A language model receives these identifiers and converts them into vectors using an embedding layer.
+
+Embeddings are dense numerical representations of tokens. Similar tokens can develop related representations during training. The embedding layer is one of the first components of a transformer language model.
+
+Transformers are neural network architectures designed to process sequences efficiently. The transformer architecture became important for language modeling because its attention mechanism allows each token to interact with other relevant tokens in the sequence.
+
+Self attention allows a token to use information from other tokens. Queries, keys, and values are calculated from the hidden representations. Attention scores determine how strongly each token should use information from other positions.
+
+Causal attention is used for autoregressive language models. A token is allowed to attend only to previous tokens and itself. It cannot look at future tokens because doing so would reveal the answer during training.
+
+The attention mechanism can be described using queries, keys, and values. Queries represent what each position is looking for. Keys represent information that can be matched against queries. Values contain the information that is combined according to the attention weights.
+
+Multi head attention divides the hidden representation into multiple attention heads. Each head can learn different relationships between tokens. The outputs of the heads are combined and projected back into the hidden dimension.
+
+Rotary positional embeddings, often called RoPE, provide position information to attention. RoPE rotates query and key representations according to their positions. This allows the model to represent relationships between positions in a sequence.
+
+RMSNorm is a normalization technique used in transformer models. It normalizes hidden representations using their root mean square. Normalization helps keep the numerical behavior of the network stable during training.
+
+Residual connections allow information to flow around transformer sublayers. A transformer block commonly adds the output of a sublayer back to its input. Residual connections are important for training deeper neural networks.
+
+The multilayer perceptron inside a modern transformer transforms each token representation independently. Mistral style architectures use a gated feed forward design called SwiGLU. The gate controls information that is passed through the nonlinear transformation.
+
+SwiGLU combines a sigmoid-like activation called SiLU with a gating mechanism. One projection produces a gate and another projection produces values. Their element-wise product is passed through another projection to produce the output of the feed forward network.
+
+A transformer block usually contains normalization, self attention, a residual connection, another normalization layer, and a feed forward network. Multiple transformer blocks are stacked to create the complete model.
+
+A language model is trained using next token prediction. For example, if the input sequence contains the tokens "the cat is", the target sequence can contain "cat is sleeping". The model learns to predict each next token from the tokens before it.
+
+Cross entropy is commonly used as the training loss for language models. It measures how different the predicted probability distribution is from the target token. Lower loss generally means that the model assigns higher probability to the correct tokens.
+
+Backpropagation calculates gradients of the loss with respect to model parameters. An optimizer then uses these gradients to update the parameters. AdamW is a commonly used optimizer for transformer training.
+
+Training a language model requires large amounts of text. A small dataset can teach a model to reproduce patterns from that dataset, but it cannot provide the broad knowledge and language ability of a large pretrained model.
+
+The quality of training data is important. Duplicate, corrupted, extremely repetitive, or low quality text can reduce the usefulness of training. Large language models therefore use carefully processed collections of text.
+
+Batching allows multiple training examples to be processed together. A batch contains several sequences of token IDs. The model processes the batch and calculates a combined loss before updating its parameters.
+
+The sequence length determines how many tokens the model can process at one time. A longer context allows the model to use information from farther back in the sequence, but it also increases computational and memory requirements.
+
+A checkpoint stores the parameters of a trained model. Saving checkpoints during training allows training to continue later and makes it possible to keep the model state with the best validation performance.
+
+Validation data is separated from training data. The model does not directly update its parameters using validation examples. Validation loss provides an estimate of how well the model generalizes beyond the examples used for parameter updates.
+
+Overfitting happens when a model learns the training data too closely and performs poorly on unseen data. Increasing the amount and diversity of training data can help reduce this problem.
+
+Underfitting occurs when a model has not learned enough useful patterns from the training data. Increasing model capacity, training time, or data quality can sometimes improve learning.
+
+PyTorch is a machine learning framework that provides tensors, automatic differentiation, neural network layers, optimizers, and tools for training models. It is widely used for deep learning research and development.
+
+A tensor is a multidimensional numerical array. Neural networks use tensors to represent inputs, parameters, intermediate activations, gradients, and outputs.
+
+Automatic differentiation calculates derivatives of mathematical operations automatically. In PyTorch, tensors can track operations so that gradients can be computed during backpropagation.
+
+The CPU can run neural network training, although large language models are usually trained using GPUs or other accelerators because they can perform many matrix operations efficiently in parallel.
+
+A GPU contains many processing units that can execute numerical operations in parallel. Transformer models perform large numbers of matrix multiplications, making GPUs useful for training and inference.
+
+A real large language model requires much more computation than a tiny educational model. Model size, dataset size, sequence length, number of training steps, hardware, and optimization techniques all affect the final capability.
+
+Mistral is a family of language models developed by Mistral AI. Mistral style architectures use modern transformer components such as grouped attention techniques, rotary positional embeddings, normalization, and gated feed forward networks.
+
+Building a small transformer from scratch is useful for understanding how language models work. The same fundamental ideas appear in much larger models, although production systems use much larger datasets, models, and distributed training infrastructure.
+
+The goal of this project is to understand the complete language model pipeline. Text is converted into tokens, tokens are converted into vectors, transformer layers process the representations, and the model predicts the next token.
+
+After pretraining, a language model can be further trained for specific behaviors. Instruction tuning uses examples of instructions and responses to make a pretrained model better at following user requests.
+
+Inference is the process of using a trained model to generate predictions. During text generation, the model predicts one token, adds it to the sequence, and predicts the next token repeatedly.
+
+Temperature changes the randomness of token sampling. A lower temperature generally makes generation more concentrated around high probability tokens, while a higher temperature allows more variation.
+
+Top k sampling limits the sampling candidates to the k tokens with the highest probabilities. This can prevent very unlikely tokens from being selected during generation.
+
+The quality of a language model depends on more than its number of parameters. Data quality, training procedures, architecture, optimization, context length, and evaluation all influence the final behavior.
+
+Language models do not simply store a list of answers. During training, their parameters are adjusted to represent statistical patterns in the training data. The resulting representations allow the model to generate new sequences based on learned patterns.
+
+A tokenizer and model must use the same vocabulary. If the tokenizer produces an ID outside the range expected by the model embedding layer, the model cannot process that token correctly.
+
+For causal language modeling, the input sequence and target sequence are shifted by one position. The model uses the input tokens to predict the next token at each position.
+
+For example, the input tokens may represent "Artificial intelligence learns". The target tokens represent "intelligence learns quickly". The model therefore learns a prediction task at every position in the sequence.
+
+Training a language model is an iterative process. A batch is loaded, predictions are calculated, the loss is computed, gradients are calculated, parameters are updated, and the process repeats for many batches.
+
+As training progresses, the loss can decrease. However, a low training loss alone does not prove that the model has learned general language ability. Evaluation on unseen data and diverse prompts is also important.
+
+A useful language model needs broad and diverse training information. General text can teach language structure, while specialized documents can teach terminology and domain-specific patterns.
+
+The transformer architecture is highly parallel during training because many token representations can be processed simultaneously. Autoregressive generation is less parallel because each newly generated token depends on previous tokens.
+
+Efficient language model training requires careful management of memory and computation. Large models may use techniques such as mixed precision, gradient accumulation, distributed training, optimized attention kernels, and checkpointing.
+
+A model with millions of parameters can be trained as an educational experiment on limited hardware, but a model with billions of parameters requires substantially more computational resources.
+
+The purpose of a from-scratch implementation is not to immediately reproduce the capabilities of a commercial language model. The purpose is to understand the mechanisms that make modern language models possible and then progressively scale the system.
+
+This project begins with a small Mistral style architecture. The architecture can later be expanded by increasing the vocabulary, hidden dimension, number of layers, attention heads, sequence length, dataset size, and training duration.
+
+A language model becomes useful through scale and training. The architecture provides the structure, while data and optimization provide the learned behavior.
+
+The next stage of this project is to build a reliable pretraining pipeline that can process substantially more text instead of relying on a tiny collection stored entirely in memory.
+
+The long term goal is to create a genuine language model from scratch and understand every major component involved in its training and inference.

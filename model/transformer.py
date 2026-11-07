@@ -6,46 +6,47 @@ from .attention import MistralAttention
 from .mlp import MistralMLP
 
 
-class MistralTransformerBlock(nn.Module):
+class TransformerBlock(nn.Module):
     def __init__(
         self,
         hidden_size,
         num_heads,
+        num_kv_heads,
         intermediate_size,
-        max_seq_len=2048
+        max_seq_len
     ):
         super().__init__()
 
-        self.input_layernorm = RMSNorm(hidden_size)
+        self.attention_norm = RMSNorm(hidden_size)
 
-        self.self_attn = MistralAttention(
-            hidden_size=hidden_size,
-            num_heads=num_heads,
-            max_seq_len=max_seq_len
+        self.attention = MistralAttention(
+            hidden_size,
+            num_heads,
+            num_kv_heads,
+            max_seq_len
         )
 
-        self.post_attention_layernorm = RMSNorm(hidden_size)
+        self.ffn_norm = RMSNorm(hidden_size)
 
         self.mlp = MistralMLP(
-            hidden_size=hidden_size,
-            intermediate_size=intermediate_size
+            hidden_size,
+            intermediate_size
         )
-
     def forward(self, x):
 
         # Attention + residual connection
         residual = x
 
-        x = self.input_layernorm(x)
+        x = self.attention_norm(x)
 
-        x = self.self_attn(x)
+        x = self.attention(x)
 
         x = residual + x
 
         # MLP + residual connection
         residual = x
 
-        x = self.post_attention_layernorm(x)
+        x = self.ffn_norm(x)
 
         x = self.mlp(x)
 
